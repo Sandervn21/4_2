@@ -29,7 +29,12 @@ import numpy as np
 text = "The quick brown fox jumps over the lazy dog!"
 
 # Write a list comprehension to tokenize the text and remove punctuation
-tokens = _ # Your code here
+# Task 1
+tokens = [
+    "".join(char for char in word if char.isalnum())
+    for word in text.split()
+]
+# Your code here
 
 # Expected output: ['The', 'quick', 'brown', 'fox', 'jumps', 'over', 'the', 'lazy', 'dog']
 print(tokens)
@@ -45,9 +50,11 @@ print(tokens)
 # Your code here:
 # -----------------------------------------------
 def tokenize(string: str) -> list:
-    pass # Your code
-
-
+    toks = [
+        "".join(char for char in word if char.isalnum()).lower()
+        for word in string.split()
+    ]
+    return [token for token in toks if token]
 # -----------------------------------------------
 
 
