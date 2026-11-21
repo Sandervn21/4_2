@@ -186,8 +186,22 @@ assert all(id_to_token[token_to_id[key]]==key for key in token_to_id) and all(to
 # Your code here:
 # -----------------------------------------------
 def make_vocabulary_map(documents: list) -> tuple:
-    # Hint: use your tokenize function
-    pass # Your code
+    unique_tokens = sorted({
+        token
+        for document in documents
+        for token in tokenize(document)
+    })
+
+    token2int = {
+        token: i
+        for i, token in enumerate(unique_tokens)
+    }
+    int2token = {
+        i: token
+        for token, i in token2int.items()
+    }
+
+    return token2int, int2token
 
 # Test
 t2i, i2t = make_vocabulary_map([text])
@@ -205,9 +219,21 @@ all(i2t[t2i[tok]] == tok for tok in t2i) # should be True
 
 # Your code here:
 # -----------------------------------------------
-def tokenize_and_encode(documents: list) -> list:
-    # Hint: use your make_vocabulary_map and tokenize function
-    pass # Your code
+def tokenize_and_encode(documents: list) -> tuple:
+    token_to_id, id_to_token = make_vocabulary_map(documents)
+
+    encoded_sentences = []
+    for document in documents:
+        tokens = [
+            "".join(char for char in word if char.isalnum()).lower()
+            for word in document.split()
+        ]
+        tokens = [token for token in tokens if token]
+
+        encoded_sentences.append([token_to_id[token] for token in tokens])
+
+    return encoded_sentences, token_to_id, id_to_token
+
 
 # Test:
 enc, t2i, i2t = tokenize_and_encode([text, 'What a luck we had today!'])
@@ -307,9 +333,26 @@ np.all(sigmoid(np.log([1, 1/3, 1/7])) == np.array([1/2, 1/4, 1/8]))
 
 # Your code here:
 # -----------------------------------------------
-def rnn_layer(w: np.array, list_of_sequences: list[np.array], sigma=sigmoid ) -> np.array:
+def rnn_layer(
+    w: np.ndarray,
+    list_of_sequences: list[np.ndarray],
+    sigma=sigmoid
+) -> np.ndarray:
+    W = w[:9].reshape(3, 3)
+    U = w[9:18].reshape(3, 3)
+    B = w[18:21].reshape(1, 3)
 
-    pass # Your code
+    outputs = np.empty(len(list_of_sequences))
+
+    for i, X in enumerate(list_of_sequences):
+        a = np.zeros(X.shape[1])
+
+        for j in range(X.shape[0]):
+            a = W @ X[j, :] + U @ a
+
+        outputs[i] = (B @ a).item()
+
+    return outputs
 
 # Test
 np.random.seed(10)
@@ -343,10 +386,14 @@ o.shape == (100,) and o.mean().round(3) == 16.287 and o.std().astype(int) == 133
 
 # Your code here:
 # -----------------------------------------------
-def rnn_loss(w: np.array, list_of_sequences: list[np.array], y: np.array) -> np.float64:
+
+def rnn_loss(
+    w: np.ndarray,
+    list_of_sequences: list[np.ndarray],
+    y: np.ndarray
+) -> np.float64:
     pred = rnn_layer(w, list_of_sequences)
-    sum = ((y-pred)**2).sum()
-    return sum
+    return np.mean((y - pred) ** 2)
 
 # Test:
 y = np.array([(X @ np.arange(1,4))[0] for X in list_of_sequences])
