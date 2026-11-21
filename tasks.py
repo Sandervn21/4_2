@@ -54,7 +54,7 @@ def tokenize(string: str) -> list:
         "".join(char for char in word if char.isalnum()).lower()
         for word in string.split()
     ]
-    return [token for token in toks if token]
+    return sorted(set(token for token in toks if token))
 # -----------------------------------------------
 
 
