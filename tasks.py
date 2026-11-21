@@ -80,7 +80,20 @@ def tokenize(string: str) -> list:
 
 # Your code here:
 # -----------------------------------------------
-word_frequencies = _ # Your code here
+# Count every word, treating uppercase and lowercase as the same
+word_frequencies = {
+    word: sum(token.lower() == word for token in tokens)
+    for word in sorted(set(token.lower() for token in tokens))
+}
+
+
+# Keep only words that appear more than once
+word_frequencies = {
+    word: sum(token.lower() == word for token in tokens)
+    for word in sorted(set(token.lower() for token in tokens))
+    if sum(token.lower() == word for token in tokens) > 1
+}
+
 
 # Expected output example: {'the': 2, 'quick': 1, ...}
 print(word_frequencies)
