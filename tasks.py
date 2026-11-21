@@ -1,5 +1,6 @@
 import numpy as np
 
+
 # Follow the tasks below to practice basic Python concepts.
 # Write your code in between the dashed lines.
 # Don't import additional packages. Numpy suffices.
@@ -85,14 +86,7 @@ word_frequencies = {
     word: sum(token.lower() == word for token in tokens)
     for word in sorted(set(token.lower() for token in tokens))
 }
-print(word_frequencies)  # All counts
 
-# Keep only words that appear more than once
-word_frequencies = {
-    word: sum(token.lower() == word for token in tokens)
-    for word in sorted(set(token.lower() for token in tokens))
-    if sum(token.lower() == word for token in tokens) > 1
-}
 
 # Expected output example: {'the': 2, 'quick': 1, ...}
 print(word_frequencies)
