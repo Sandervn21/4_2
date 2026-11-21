@@ -126,9 +126,6 @@ text_hist = {'the': 2, 'quick': 1, 'brown': 1, 'fox': 1, 'jumps': 1, 'over': 1, 
 all(text_hist[key] == value for key, value in token_counts(text).items())
 # -----------------------------------------------
 
-
-
-
 # [C] Sets & Dictionary comprehension: Mapping unique tokens to numbers and vice versa
 #   Objective: Practice dictionary comprehensions and create mappings from tokens to unique 
 #              numerical IDs and back.
@@ -150,7 +147,18 @@ all(text_hist[key] == value for key, value in token_counts(text).items())
 
 # Your code here:
 # -----------------------------------------------
-token_to_id = {token: i for i, token in enumerate(sorted(set(token for token in tokens)))}
+unique_tokens = sorted(set(token.lower() for token in tokens))
+
+token_to_id = {
+    token: i
+    for i, token in enumerate(unique_tokens)
+}
+
+id_to_token = {
+    i: token
+    for token, i in token_to_id.items()
+}
+
 
 # Expected output: {'dog': 0, 'quick': 1, 'fox': 2, 'the': 3, 'over': 4, 'lazy': 5, 'brown': 6, 'jumps': 7}
 print(token_to_id)
