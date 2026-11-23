@@ -50,12 +50,12 @@ print(tokens)
 
 # Your code here:
 # -----------------------------------------------
-def tokenize(string: str) -> list:
+def tokenize(string: str) -> list[str]:
     toks = [
         "".join(char for char in word if char.isalnum()).lower()
         for word in string.split()
     ]
-    return sorted(set(token for token in toks if token))
+    return list(dict.fromkeys(token for token in toks if token))
 # -----------------------------------------------
 
 
