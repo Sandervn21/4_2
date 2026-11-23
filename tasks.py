@@ -220,8 +220,11 @@ all(i2t[t2i[tok]] == tok for tok in t2i) # should be True
 
 # Your code here:
 # -----------------------------------------------
-def tokenize_and_encode(documents: list, token_to_id: dict) -> tuple:
-    id_to_token = {i: token for token, i in token_to_id.items()}
+def tokenize_and_encode(documents: list, token_to_id=None) -> tuple:
+    if token_to_id is None:
+        token_to_id, id_to_token = make_vocabulary_map(documents)
+    else:
+        id_to_token = {i: token for token, i in token_to_id.items()}
 
     encoded_sentences = []
     for document in documents:
@@ -230,7 +233,6 @@ def tokenize_and_encode(documents: list, token_to_id: dict) -> tuple:
             for word in document.split()
         ]
         tokens = [token for token in tokens if token]
-
         encoded_sentences.append([token_to_id[token] for token in tokens])
 
     return encoded_sentences, token_to_id, id_to_token
