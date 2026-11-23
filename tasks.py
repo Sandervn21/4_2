@@ -333,33 +333,29 @@ np.all(sigmoid(np.log([1, 1/3, 1/7])) == np.array([1/2, 1/4, 1/8]))
 
 # Your code here:
 # -----------------------------------------------
-def rnn_layer(
-    w: np.ndarray,
-    list_of_sequences: list[np.ndarray],
-    sigma=sigmoid
-) -> np.ndarray:
-    W = w[:9].reshape(3, 3)
-    U = w[9:18].reshape(3, 3)
-    B = w[18:21].reshape(1, 3)
+# def rnn_layer(
+   # w: np.ndarray,
+    #### U = w[9:18].reshape(3, 3)
+    #B = w[18:21].reshape(1, 3)
 
-    outputs = np.empty(len(list_of_sequences))
+   # outputs = np.empty(len(list_of_sequences))
 
-    for i, X in enumerate(list_of_sequences):
-        a = np.zeros(X.shape[1])
+   # for i, X in enumerate(list_of_sequences):
+  #      a = np.zeros(X.shape[1])
 
-        for j in range(X.shape[0]):
-            a = W @ X[j, :] + U @ a
+  #      for j in range(X.shape[0]):
+   #         a = W @ X[j, :] + U @ a
 
-        outputs[i] = (B @ a).item()
+   #     outputs[i] = (B @ a).item()
 
-    return outputs
+  #  return outputs
 
 # Test
-np.random.seed(10)
-list_of_sequences = [np.random.normal(size=(5,3)) for _ in range(100)]
-wstart = np.random.normal(size=(3*3 + 3*3 + 3)) 
-o = rnn_layer(wstart, list_of_sequences)
-o.shape == (100,) and o.mean().round(3) == 16.287 and o.std().astype(int) == 133
+#np.random.seed(10)
+#list_of_sequences = [np.random.normal(size=(5,3)) for _ in range(100)]
+##wstart = np.random.normal(size=(3*3 + 3*3 + 3)) 
+#o = rnn_layer(wstart, list_of_sequences)
+#o.shape == (100,) and o.mean().round(3) == 16.287 and o.std().astype(int) == 133
 # -----------------------------------------------
 
 
@@ -387,18 +383,18 @@ o.shape == (100,) and o.mean().round(3) == 16.287 and o.std().astype(int) == 133
 # Your code here:
 # -----------------------------------------------
 
-def rnn_loss(
-    w: np.ndarray,
-    list_of_sequences: list[np.ndarray],
-    y: np.ndarray
-) -> np.float64:
-    pred = rnn_layer(w, list_of_sequences)
-    return np.mean((y - pred) ** 2)
+#def rnn_loss(
+  #  w: np.ndarray,
+   # list_of_sequences: list[np.ndarray],
+   # y: np.ndarray)
+ #-> np.float64:
+  #  pred = rnn_layer(w, list_of_sequences)
+  #  return np.mean((y - pred) ** 2)
 
 # Test:
-y = np.array([(X @ np.arange(1,4))[0] for X in list_of_sequences])
-o = rnn_loss(wstart, list_of_sequences, y)
-o.size == 1 and o.round(3) == 17794.733
+#y = np.array([(X @ np.arange(1,4))[0] for X in list_of_sequences])
+#o = rnn_loss(wstart, list_of_sequences, y)
+o#.size == 1 and o.round(3) == 17794.733
 # -----------------------------------------------
 
 
