@@ -50,12 +50,18 @@ print(tokens)
 
 # Your code here:
 # -----------------------------------------------
-def tokenize(string: str) -> list:
-   toks = [
-       "".join(char for char in word if char.isalnum()).lower()
-       for word in string.split()
-   ]
-   return sorted(set(token for token in toks if token))
+def tokenize(string: str) -> list[str]:
+    tokens = []
+    seen = set()
+
+    for word in string.split():
+        token = "".join(char for char in word if char.isalnum()).lower()
+
+        if token and token not in seen:
+            tokens.append(token)
+            seen.add(token)
+
+    return tokens
 # -----------------------------------------------
 
 
@@ -112,7 +118,7 @@ def token_counts(string: str, k: int = 1) -> dict:
     return {
         word: int(count)
         for word, count in zip(words, counts)
-        if count > k
+        if count >= k
     }
 
 # test:
