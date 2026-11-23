@@ -154,11 +154,6 @@ token_to_id = {
     for i, token in enumerate(unique_tokens)
 }
 
-id_to_token = {
-    i: token
-    for token, i in token_to_id.items()
-}
-
 
 # Expected output: {'dog': 0, 'quick': 1, 'fox': 2, 'the': 3, 'over': 4, 'lazy': 5, 'brown': 6, 'jumps': 7}
 print(token_to_id)
@@ -400,7 +395,7 @@ np.all(sigmoid(np.log([1, 1/3, 1/7])) == np.array([1/2, 1/4, 1/8]))
 # Test:
 #y = np.array([(X @ np.arange(1,4))[0] for X in list_of_sequences])
 #o = rnn_loss(wstart, list_of_sequences, y)
-o#.size == 1 and o.round(3) == 17794.733
+# #.size == 1 and o.round(3) == 17794.733
 # -----------------------------------------------
 
 
@@ -444,7 +439,7 @@ o#.size == 1 and o.round(3) == 17794.733
 # Now we are ready to fit the RNN to the data set. We need to load the optimization routine 
 # 'minimize' from the scipy.optimize module
 
-f# rom scipy.optimize import minimize
+# rom scipy.optimize import minimize
 
 # fit the RNN (this may take a minute)
 # fit = minimize(rnn_loss, wstart, args=(list_of_sequences, yy), method='BFGS')
@@ -469,7 +464,7 @@ f# rom scipy.optimize import minimize
 # many more parameters, and so is more flexible. 
 
 # To visualize the difference in performance we plot the true values and predicted values
-i# mport matplotlib.pyplot as plt
+# mport matplotlib.pyplot as plt
 
 #  plt.plot(yy)
 # plt.plot(pred)
