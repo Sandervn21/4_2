@@ -224,16 +224,23 @@ def tokenize_and_encode(documents: list, token_to_id=None) -> tuple:
     if token_to_id is None:
         token_to_id, id_to_token = make_vocabulary_map(documents)
     else:
-        id_to_token = {i: token for token, i in token_to_id.items()}
+        id_to_token = {
+            token_id: token
+            for token, token_id in token_to_id.items()
+        }
 
     encoded_sentences = []
+
     for document in documents:
         tokens = [
             "".join(char for char in word if char.isalnum()).lower()
             for word in document.split()
         ]
         tokens = [token for token in tokens if token]
-        encoded_sentences.append([token_to_id[token] for token in tokens])
+
+        encoded_sentences.append([
+            token_to_id[token] for token in tokens
+        ])
 
     return encoded_sentences, token_to_id, id_to_token
 
